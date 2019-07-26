@@ -1,1 +1,2 @@
-# ultisnips-goiferr
+goiferr-snippets
+================

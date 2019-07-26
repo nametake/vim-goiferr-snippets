@@ -1,5 +1,10 @@
 snippet ife "Error return" b
 if err != nil {
-	`!v goiferrsnippets#goiferr('${0:err}')`
+	`!v goiferrsnippets#goiferr('${1:err}')`
 }
+${0}
+endsnippet
+
+snippet return "Return values" b
+`!v goiferrsnippets#return()`
 endsnippet

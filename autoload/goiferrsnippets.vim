@@ -43,12 +43,12 @@ function! goiferrsnippets#goiferr(err)
 
   " no return value
   if ret =~# '\v^\s*$'
-    return '${0:return}'
+    return 'return'
   endif
 
   " named return values
   if ret =~# '\v^\w* \*?\w*'
-    return '${0:return}'
+    return 'return'
   endif
 
   let rets = []
@@ -68,6 +68,44 @@ function! goiferrsnippets#goiferr(err)
     endif
     call add(rets, v)
   endfor
+
+  return 'return ' . join(rets, ', ')
+endfunction
+
+function! goiferrsnippets#return()
+  let ret = GetRet()
+
+  " no return value
+  if ret =~# '\v^\s*$'
+    return 'return'
+  endif
+
+  " named return values
+  if ret =~# '\v^\w* \*?\w*'
+    return 'return'
+  endif
+
+  let rets = []
+  let index = 0
+  for t in split(ret, ',')
+    let index += 1
+    if t =~# '\v^\s*error\s*$'
+      let v = '${' . index . ':nil}'
+    elseif t =~# '\v^\s*string\s*$'
+      let v = '${' . index . ':""}'
+    elseif t =~# '\v^\s*int\d*\s*$'
+      let v = '${' . index . ':0}'
+    elseif t =~# '\v^\s*bool\s*$'
+      let v = '${' . index . ':false}'
+    elseif t =~# '\v^\s*\*\w*$' " pointer
+      let v = '${' . index . ':&' . trim(t, '* ') . '\{\}}'
+    else
+      let v = '${' . index . ':' . trim(t) . '\{\}}'
+    endif
+    call add(rets, v)
+  endfor
+
+  echom join(rets, ', ')
 
   return 'return ' . join(rets, ', ')
 endfunction

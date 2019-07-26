@@ -8,33 +8,46 @@ let g:loaded_ultisnipsgoiferr = 1
 let s:save_cpoptions = &cpoptions
 set cpoptions&vim
 
-function! goiferrsnippets#goiferr(err)
-  let re_func = '\vfunc'
-  let re_type = '%(%([.A-Za-z0-9*]|\[|\]|%(%(struct)|%(interface)\{\}))+)'
-  let re_rcvr = '%(\s*\(\w+\s+' . re_type . '\))?'
-  let re_name = '%(\s*\w+)?'
-  let re_arg  = '\(%(\w+%(\s+%(\.\.\.)?' . re_type . ')?\s*,?\s*)*\)'
+" regrex
+let s:re_func = '\vfunc'
+let s:re_type = '%(%([.A-Za-z0-9*]|\[|\]|%(%(struct)|%(interface)\{\}))+)'
+let s:re_rcvr = '%(\s*\(\w+\s+' . s:re_type . '\))?'
+let s:re_name = '%(\s*\w+)?'
+let s:re_arg  = '\(%(\w+%(\s+%(\.\.\.)?' . s:re_type . ')?\s*,?\s*)*\)'
 
-  let re_ret_v = '%(\w+)'
-  let re_ret  = '%(\s*\(?(\s*\*?[a-zA-Z0-9_. ,]+)\)?\s*)?'
-  let re_ret_body = '%(' . re_ret_v . '|%(' . re_ret_v  . '\s*' . re_type . ')|' . re_type . '\s*,?\s*)*'
-  let re_ret  = '%(\s*\(?\s*(' . re_ret_body . ')\)?\s*)?'
-  let re = re_func . re_rcvr . re_name . re_arg . re_ret . '\{'
+let s:re_ret_v = '%(\w+)'
+let s:re_ret  = '%(\s*\(?(\s*\*?[a-zA-Z0-9_. ,]+)\)?\s*)?'
+let s:re_ret_body = '%(' . s:re_ret_v . '|%(' . s:re_ret_v  . '\s*' . s:re_type . ')|' . s:re_type . '\s*,?\s*)*'
+let s:re_ret  = '%(\s*\(?\s*(' . s:re_ret_body . ')\)?\s*)?'
+let s:re = s:re_func . s:re_rcvr . s:re_name . s:re_arg . s:re_ret . '\{'
 
+" get return types
+function GetRet()
   let lnum = line('.')
   let ret = ''
   while lnum > 0
     let lnum -= 1
 
-    let ma = matchlist(getline(lnum), re)
+    let ma = matchlist(getline(lnum), s:re)
     if len(ma) == 0
       continue
     endif
     let ret = ma[1]
     break
   endwhile
+  return ret
+endfunction
 
-  if ret =~ '\v^\s*$'
+function! goiferrsnippets#goiferr(err)
+  let ret = GetRet()
+
+  " no return value
+  if ret =~# '\v^\s*$'
+    return '${0:return}'
+  endif
+
+  " named return values
+  if ret =~# '\v^\w* \*?\w*'
     return '${0:return}'
   endif
 
@@ -48,8 +61,10 @@ function! goiferrsnippets#goiferr(err)
       let v = '0'
     elseif t =~# '\v^\s*bool\s*$'
       let v = 'false'
-    else
+    elseif t =~# '\v^\s*\*.*$' " pointer
       let v = 'nil'
+    else
+      let v = trim(t) . '{}'
     endif
     call add(rets, v)
   endfor

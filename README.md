@@ -1,2 +1,2 @@
-goiferr-snippets
-================
+vim-goiferr-snippets
+====================

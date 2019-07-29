@@ -42,3 +42,8 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='your_plugin_install_directory/vim-iferr-snippets/snippets'
 ```
+
+Special thanks
+--------------
+
+[@pocke](https://github.com/pocke) ([Vim で Go 言語を書いている時、Neosnippet でいい感じに if する](https://pocke.hatenablog.com/entry/2015/12/20/133445)\)

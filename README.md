@@ -1,10 +1,12 @@
 vim-goiferr-snippets
 ====================
 
+vim-goiferr-snippets is a plugin that adds snippets that complement Go's return value. Support for UltiSnips and neosnippet.
+
+![demo](https://raw.github.com/wiki/nametake/vim-goiferr-snippets/img/demo.gif)
+
 Installation
 ------------
-
-vim-goiferr-snippets is a plugin that adds snippets that complement Go's return value. Support for UltiSnips and neosnippet.
 
 ### vim-plug
 

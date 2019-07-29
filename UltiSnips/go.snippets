@@ -1,6 +1,6 @@
 priority -5
 
-snippet ife "Error return" b
+snippet ifer "Error return" b
 if err != nil {
 	`!v goiferrsnippets#goiferr('${1:err}')`
 }
@@ -28,6 +28,6 @@ if ${2:err} := ${1} ;err != nil {
 ${0}
 endsnippet
 
-snippet return "Return values" b
+snippet ret "Return values" b
 `!v goiferrsnippets#return()`${0}
 endsnippet

@@ -1,0 +1,26 @@
+snippet ifer Error return
+  if err != nil {
+    `goiferrsnippets#goiferr('${1:err}')`
+  }
+  ${0}
+
+snippet ifew Wrapped error return
+  if err != nil {
+    `goiferrsnippets#goiferr('errors.Wrap(err, "${1:}")')`
+  }
+  ${0}
+
+snippet ifei Inline error return
+  if ${2:err} := ${1} ;err != nil {
+    `goiferrsnippets#goiferr('${3:err}')`
+  }
+  ${0}
+
+snippet ifeiw Inline wrapped error return
+  if ${2:err} := ${1} ;err != nil {
+    `goiferrsnippets#goiferr('errors.Wrap(err, "${3:}")')`
+  }
+  ${0}
+
+snippet ret Return values
+  `goiferrsnippets#return()`

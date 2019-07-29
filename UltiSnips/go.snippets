@@ -1,3 +1,5 @@
+priority -5
+
 snippet ife "Error return" b
 if err != nil {
 	`!v goiferrsnippets#goiferr('${1:err}')`
@@ -5,6 +7,27 @@ if err != nil {
 ${0}
 endsnippet
 
+snippet ifew "Wrapped error return" b
+if err != nil {
+	`!v goiferrsnippets#goiferr('errors.Wrap(err, "${1:}")')`
+}
+${0}
+endsnippet
+
+snippet ifei "Inline error return" b
+if ${2:err} := ${1} ;err != nil {
+	`!v goiferrsnippets#goiferr('${3:err}')`
+}
+${0}
+endsnippet
+
+snippet ifeiw "Inline wrapped error return" b
+if ${2:err} := ${1} ;err != nil {
+	`!v goiferrsnippets#goiferr('errors.Wrap(err, "${3:}")')`
+}
+${0}
+endsnippet
+
 snippet return "Return values" b
-`!v goiferrsnippets#return()`
+`!v goiferrsnippets#return()`${0}
 endsnippet

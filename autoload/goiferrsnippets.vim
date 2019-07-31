@@ -1,9 +1,9 @@
 scriptencoding utf-8
 
-if exists('g:loaded_ultisnipsgoiferr')
+if exists('g:loaded_goiferrsnippets')
     finish
 endif
-let g:loaded_ultisnipsgoiferr = 1
+let g:loaded_goiferrsnippets = 1
 
 let s:save_cpoptions = &cpoptions
 set cpoptions&vim

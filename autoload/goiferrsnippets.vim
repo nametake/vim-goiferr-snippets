@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-if exists('g:loaded_hellobeautifulworld')
+if exists('g:loaded_ultisnipsgoiferr')
     finish
 endif
 let g:loaded_ultisnipsgoiferr = 1

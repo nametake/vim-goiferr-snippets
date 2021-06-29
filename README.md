@@ -21,7 +21,7 @@ For UltiSnips, define your favorite snippet as follows.
 ```snippets
 snippet iferfav "Error return" b
 if err != nil {
-	`!v goiferrsnippets#ReturnValueWithoutError()`, your_favorite_snippet_lib.Wrap(err, "${1}")})
+	`!v goiferrsnippets#ReturnValueWithoutError()`, your_favorite_snippet_lib.Wrap(err, "${1}")
 }
 ${0}
 endsnippet
